@@ -1,12 +1,12 @@
 <?php
 
-define("_host", "multi022.mysql.guardedhost.com");
-define("_user_base", "multi022_pagos");
-define("_pass_base", "zvGw4Se4sh^8");
-define("_nom_base", "multi022_pagos");
+define("_host", "");
+define("_user_base", "");
+define("_pass_base", "");
+define("_nom_base", "");
 	
-define("_user_base_lectura", "multi022_pagos_lectura");
-define("_pass_base_lectura", "4!wP4Ubee3");
+define("_user_base_lectura", "");
+define("_pass_base_lectura", "");
 	
     //url para el template en las vistas
     $template_ruta="view/default/";
