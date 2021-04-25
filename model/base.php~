@@ -1,0 +1,107 @@
+<?php
+
+class base
+{
+	public function __construct($host, $usuario, $contrasena, $bd)
+	{
+		// Conectando, seleccionando la base de datos
+		$link = mysql_connect($host, $usuario, $contrasena)
+		or die('No se pudo conectar: ' . mysql_error());
+		//echo 'Connected successfully';
+		mysql_select_db($bd) or die('No se pudo seleccionar la base de datos');
+	}
+	public function listar($tabla,$ordenar)
+	{
+		// Realizar una consulta MySQL
+		
+		$query = 'SELECT * FROM '.$tabla.' ORDER BY PRODUCTO';
+		$result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+		
+		return $result;
+
+	}
+	public function insertar($tableName, $insData)
+	{
+    //$db = new database();
+    $columns = implode(", ",array_keys($insData));
+    $escaped_values = array_map('mysql_real_escape_string', array_values($insData));
+    foreach ($escaped_values as $idx=>$data) $escaped_values[$idx] = "'".$data."'";
+    $values  = implode(", ", $escaped_values);
+    $query = "INSERT INTO $tableName ($columns) VALUES ($values)";
+    mysql_query($query) or die(mysql_error());
+    //mysql_close($db->get_link());
+	}
+	public function actualizar($tableName, $id, $insData)
+	{
+		$columns = implode(", ",array_keys($insData));
+    	$escaped_values = array_map('mysql_real_escape_string', array_values($insData));
+    	foreach ($escaped_values as $idx=>$data) $escaped_values[$idx] = "'".$data."'";
+    	$values  = implode(", ", $escaped_values);
+    	$query = "INSERT INTO $tableName ($columns) VALUES ($values)";
+    	mysql_query($query) or die(mysql_error());
+	}
+	public function cerrar()
+	{
+		mysql_close();
+	}
+}
+
+
+
+/*
+class base extends mysqli
+{
+    
+    public function __construct($host, $usuario, $contrasena, $bd) {
+        parent::__construct($host, $usuario, $contrasena, $bd);
+        if (mysqli_connect_error()) {
+            die('Error de Conexión (' . mysqli_connect_errno() . ') '
+                    . mysqli_connect_error());
+        }
+    }
+    
+    //metodo listar
+    public function listar($tabla,$conexion)
+    {
+        $listar="SELECT * FROM $tabla";
+        $datos=$conexion->query($listar);
+        while($query_result = $datos->fetch_array()) 
+        {
+            echo $query_result['IMAGEN'];
+            echo "<br>".$query_result['TITULO'];
+            echo "<br>".$query_result['DESCRIPCION'];
+            echo "<br>".$query_result['PRECIO'];
+            echo "<br>".$query_result['URL'];
+            echo "<br>".$query_result['ACTIVO'];
+            echo "<br>".$query_result['GRUPO'];
+            echo "<br>".$query_result['FECHA_CREADO'];
+        }
+    }
+    
+    //metodo insertar
+    public function insertar($tabla,$columnas,$datos,$val,$tipo_datos,$conexion)
+    {
+    $uno="hjkh";
+    $dos="shdflk";
+    $tres="oyeu";
+    $cuatro="lhghkj";
+    $cinco=12323232;
+    $seis="nv.mnkn.k";
+    $siete="knjñjkl";
+    
+	    
+        $peticion="INSERT INTO $tabla ($columnas) VALUES ($val)";
+        
+        $stmt = $conexion->prepare($peticion);
+        $stmt->bind_param($tipo_datos, $datos);
+        $stmt->execute();
+        $stmt->close();
+        
+       // $cmd = $conexion->prepare('INSERT INTO $tabla VALUES(NULL,?,?,?,?)');
+       // $cmd->execute(array($nombre,$apellido,$edad,$email));
+      
+    }
+    
+    //metodo actualizar
+}*/
+?>

@@ -1,0 +1,89 @@
+<?php 
+require_once('view/default/vista-php/header.phtml');
+		
+?>
+<style type="text/css" media="screen">
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+ 
+  box-shadow: 0 0 3px 3px #d6d6d6;
+    border-bottom: solid 2px #55afa1;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+	border-radius: 10%;
+    padding: 1%;
+margin: 0.2em;
+    transition: 500ms all;
+    background-color: #fff;
+    max-width: 100px;
+    border: solid 1px #e0e0e0;
+}
+.bancos
+{
+width: 200px;
+}
+</style>
+
+
+<!-- Content -->
+<div class="w3-content" style="max-width:70%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4 class="titulos">Datos del estudiante o candidato que tomar&aacute; el servicio<hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10">
+    
+    
+    <form method="get" class="w3-container" action="#">
+    <div class="w3-section" style="width: 49%;	float: left;">
+      <label>Nombres</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="NOMBRE" required type="text">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: right;">
+      <label>Apellidos</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="APELLIDOS" required type="text">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: left;">
+      <label>Cedula</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="CEDULA" required type="text">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: right;">
+      <label>Correo</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="MAIL" required type="text">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: left;">
+      <label>Direcci&oacute;n</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="DIRECCION" required>
+    </div>
+     <div class="w3-section" style="width: 49%;	float: right;">
+      <label>N&uacute;mero de celular</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="CELULAR" required>
+    </div>
+    
+    <div class="w3-panel">
+    <hr>
+
+    <input type="hidden" name="var" value="<?php echo $_REQUEST['var']; ?>">
+    
+    <button type="submit" class="w3-button w3-block w3-teal" style="width:30%; margin-left: 35%;">Enviar inscripción</button>
+     </div>
+      <hr>
+  </form>
+
+    
+   
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

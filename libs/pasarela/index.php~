@@ -1,0 +1,47 @@
+<?php
+error_reporting(E_ERROR);
+require_once('funciones.php');
+require_once('productos.php');
+//echo $_SERVER['DOCUMENT_ROOT'];
+foreach ($productos as $variable => $valor)  
+        {
+            //echo "<br> Variable ".$variable;
+			//echo "<br> Valor ".$valor;
+			
+			if($_REQUEST['product']==$variable)
+			{
+				$description=$variable;
+				$amount=$valor;
+				$referencecode=mt_rand(1000, 3000);
+				$referencecode.=$description;
+			}
+		}
+	$firm="LvGBS307frpxu2iOLgBm7Y6P1U~624633~";
+	$firm.=$referencecode;
+	$firm.="~";
+	$firm.=$amount;
+	$firm.="~";
+	$firm.="COP";
+	$signature=MD5($firm);
+?>
+
+<form method="post" action="https://gateway.payulatam.com/ppp-web-gateway" id="form" name="form">
+  <input name="ApiKey"    type="hidden"  value="LvGBS307frpxu2iOLgBm7Y6P1U"   >
+  <input name="merchantId"    type="hidden"  value="624633"   >
+  <input name="accountId"     type="hidden"  value="626985" >
+  <input name="description"   type="hidden"  value="<?php echo $description; ?>"  >
+  <input name="referenceCode" type="hidden"  value="<?php echo $referencecode; ?>" >
+  <input name="amount"        type="hidden"  value="<?php echo $amount; ?>"   >
+  <input name="tax"           type="hidden"  value="0"  >
+  <input name="taxReturnBase" type="hidden"  value="0" >
+  <input name="currency"      type="hidden"  value="COP" >
+  <input name="signature"     type="hidden"  value="<?php echo $signature; ?>">
+  <input name="test"          type="hidden"  value="0" >
+  <!-- <input name="Submit"        type="submit"  value="Enviar" > -->
+</form>
+<script>
+    window.onload=function(){
+                // Una vez cargada la página, el formulario se enviara automáticamente.
+		document.forms["form"].submit();
+    }
+    </script>

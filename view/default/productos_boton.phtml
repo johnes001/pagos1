@@ -1,0 +1,62 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	  /*
+      //ENLACES TABLA
+while ($indice = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+		
+		foreach ($indice as $ind => $col_value) {
+        echo '&ltth&gt &lta href="index.php?c=productos&orden='.$ind.'"&gt &lt/a&gt &lt/th&gt &ltbr&gt<br>';
+		}
+	}
+//ENLACES TABLA   
+   */
+   
+   echo '<table>
+   <thead>
+              <tr>
+                <th>  Seleccionar.</th> 
+				<th>Nombre del Grupo</th> 
+              </tr>
+            </thead>
+            <tbody><!--!important -->';
+            //echo '<br> grupos = '.$grupos;
+		while ($indice = mysqli_fetch_array($grupos, MYSQLI_ASSOC)) {
+				echo '<form method="get" action="#"><tr>';
+				foreach ($indice as $ind => $col_value) {
+					
+						
+							
+							echo '<td data-label="'.$ind.'"><input type="radio" name="GRUPO" value="'.$col_value.'" onchange="this.form.submit()"></td>';
+							echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+						
+						
+						
+					
+				}
+					echo '</tr><input type="hidden" name="c" value="'.$controlador.'"><input type="hidden" name="m" value="'.$metodo.'"><input type="hidden" name="editar_form" value="1"></form>';
+			
+		}
+		echo "<tbody></table>";
+			
+    ?>
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

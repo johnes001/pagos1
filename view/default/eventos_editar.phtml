@@ -1,0 +1,159 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	  
+   
+   echo '<table>
+   <thead>
+              <tr>
+            <th> <a href="index.php?c=calendario&orden=ID&m=editar-evento">Acciones</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre&m=editar-evento"> Nombre</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=descripcion&m=editar-evento"> Descripción</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_evento&m=editar-evento"> Fecha</a> </th>
+				<th> <a href="index.php?c=calendario&orden=mail_usuario_creador&m=editar-evento"> Propietario</a> </th>
+				<th> <a href="index.php?c=calendario&orden=mail_usuarios_permisos&m=editar-evento"> Pueden editar</a> </th>
+				<th> <a href="index.php?c=calendario&orden=lista_mails&m=editar-evento"> Destinatarios</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre_calendario&m=editar-evento"> Calendario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=activo&m=editar-evento"> Estado</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=destino_url&m=editar-evento"> Destino url</a> </th>
+				<th> <a href="index.php?c=calendario&orden=color&m=editar-evento"> Indicadores</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_caducado&m=listar-eventos"> Caduca</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_creado&m=editar-evento"> Creado</a> </th>
+              </tr>
+            </thead>
+            <tbody><!--!important -->';
+            
+		while ($indice = mysqli_fetch_array($resultado, MYSQL_ASSOC)) {
+			if($_SESSION['session_email'] == $indice['mail_usuario_creador'] OR strpos($indice['mail_usuarios_permisos'], $_SESSION['session_email']) !== false)
+			{
+			echo '<form method="get" action="#"><tr>';
+			foreach ($indice as $ind => $col_value) {
+			
+					//COMPROBAMOS EL ID PARA ASIGNARLO AL RADIO 
+					if($ind=="ID")
+					{
+						
+						
+						
+						echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+						echo '<td data-label="'.$ind.'"><input type="radio" name="id" value="'.$col_value.'" onchange="this.form.submit()"><br><span style="color: #19979c;">Recordatorios:</span>';
+						
+						//Verificar que hay recordatorios asociados
+						if ($resultado_recordar=$conex->buscar("EVENTOS_RECORDATORIO", 'ID,fecha_recordar', 'id_eventos',$col_value))
+							{
+								
+								while ($datos_recordatorios = mysqli_fetch_array($resultado_recordar, MYSQL_ASSOC)) {
+									
+									foreach ($datos_recordatorios as $ind_r => $col_value_r) {
+																				
+											if($ind_r == "ID") 
+											{
+												echo '<div style="border: 1px solid #19979c; border-radius: 5px; padding: 2px; margin-bottom: 3px; font-weight: bold; font-size: 10px; color: #00855e; text-decoration: none;"><a href="index.php?c=calendario&m=editar-evento&eliminar-recordatorio=1&id-recordatorio='.$col_value_r.'" ><div title="Eliminar recordatorio" style="float: left; width: 15px; height: 15px; font-size: 10px; font-weight: bold; color: #3e3d3d; border-radius: 15%; background-color: #c9c9c9; text-align: center; vertical-align: middle;">&#215;</div></a>';
+												echo '<a href="index.php?ID-RECORDATORIO='.$col_value_r.'&';
+											}
+											else
+											{
+												echo 'c=calendario&m=editar-evento&editar-recordatorio=1&ID-EVENTO='.$col_value.'&FECHA_RECORDAR_EVENTO='.$col_value_r.'" ><span title="Editar recordatorio"> '.$col_value_r.'</span></a>';
+												//echo '<a href="index.php?c=calendario&m=editar-evento&editar-recordatorio=1&ID-EVENTO='.$col_value.'&FECHA_RECORDAR_EVENTO='.$col_value_r.'" ><span title="Editar recordatorio"> '.$col_value_r.'</span></a>';
+												echo '</div>';
+											}
+											
+									}
+									
+								}
+								
+							}// fin if verificar si hay recordatorios asociados
+							else
+							{
+								echo "Ningún recordatorio";
+							}
+						
+						echo '<a href="index.php?c=calendario&m=editar-evento&agregar-recordatorio=1&ID-EVENTO='.$col_value.'" ><span title="Agregar recordatorio" style="float: right; width: 15px; height: 15px; font-size: 10px; font-weight: bold; color: #fff; border-radius: 15%; background-color: #19979c; text-align: center; vertical-align: middle;">+</span></a></td>';
+						
+						
+					}
+					//FIN COMPROBAR ID
+					
+					//*****************************************************---------------------------------------
+					
+					
+					else if($ind == "lista_mails")
+					{
+						
+						echo '<td data-label="'.$ind.'">';
+						$lista_mails=explode(",", $col_value);
+							for($i=0; $i<count($lista_mails); $i++)
+							{
+								echo $lista_mails[$i];
+								echo '<br>';
+							}
+						echo '</td>';
+						echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+					}
+					else if($ind == "mail_usuarios_permisos")
+					{
+						
+						echo '<td data-label="'.$ind.'">';
+						$lista_mails_permisos=explode(",", $col_value);
+							for($i=0; $i<count($lista_mails_permisos); $i++)
+							{
+								echo $lista_mails_permisos[$i];
+								echo '<br>';
+							}
+						echo '</td>';
+						echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+					}
+					else if($ind == "destino_url")
+					{
+						echo '<td data-label="'.$ind.'"><a href="'.$col_value.'" target="_blank">'.$col_value.'</a></td>';
+						echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+					}
+					else if($ind == "color")
+					{
+						$colores=explode(",", $col_value);
+						echo '<td data-label="'.$ind.'"><div style="text-align:center;">Vigente<br><span style="display: inline-block; border-radius:50%;  width:15px; height:15px; background-color:'.$colores[0].';"></span></div><div style="text-align:center;">Pasado<br><span style="display: inline-block; border-radius:50%; width:15px; height:15px; background-color:'.$colores[1].';"></span></div></td>';
+						echo '<input type="hidden" name="color1" value="'.$colores[0].'">';
+						echo '<input type="hidden" name="color2" value="'.$colores[1].'">';
+					}
+					else
+					{
+						if($ind == "id_calendario")
+						{
+							echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+						}
+						else
+						{
+							echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+							echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+						}
+					}
+					//*****************************************************---------------------------------------
+			
+				}
+				echo '</tr><input type="hidden" name="c" value="'.$controlador.'">
+    <input type="hidden" name="m" value="'.$metodo.'"><input type="hidden" name="editar_form" value="1"></form>';
+				}
+				}
+				echo "<tbody></table>";
+			
+    ?>
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

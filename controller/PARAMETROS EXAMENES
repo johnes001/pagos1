@@ -1,0 +1,85 @@
+EXAMENES
+	CREAR EXAMEN 
+	 Nombre, fechas (agregar fechas), códigos (rango/lista separada por comas)
+	 Activar fechas para registro
+	 
+	SEDES (editar la cantidad de cupos por sede)
+	 CREAR SEDE
+	  Nombre, Cantidad cupos, Exámenes que se pueden aplicar
+	 CREAR SALONES
+	  Nombre, Cantidad de puestos, Sede a la que pertenece
+	  
+		FILTRO: TIPO DE EXAMEN (TOEIC/MET/ETC/TODOS)(FECHA DEL EXAMEN/TODAS)
+		LISTAR TODOS LOS CANDIDATOS, 
+	 	Se visualiza (numero,examen, codigo-examen, nombres, apellidos, cc, fecha nacimiento, estado )
+			BOTONES:
+			EDITAR CANDIDATO (asignar codigos a los candidatos seleccionados - consecutivos a partir de )
+			ELIMINAR CANDIDATO (1 O VARIOS)
+			ESTADO DEL CANDIDATO(activo/inactivo/pendiente)
+			VERIFICAR DOCUMENTOS
+			IMPRIMIR REGISTROS (todos/seleccionados)
+			
+			
+			LENOVO        LNVNB161216  PF21F9Y4      NO DPK
+			
+			
+			____________________________________________________________________
+			
+			TABLA EXAMEN (ID 	NOMBRE 	EDITOR 	ESTADO 	FECHA_CREADO)
+			
+			
+			
+			----------------------------------------------------------------------
+			estilo de caja 
+			style="border: 1px solid #D8D8D8;  border-radius: 10px;  padding: 1em; box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);"
+
+
+abrir div
+
+<!--<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Iniciar sesión</button>-->
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="index.html" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Usuario</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+	<input type="hidden" name="tarea" value="login">
+        
+      <button type="submit">Entrar</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Recordarme
+      </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button>
+      
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+       
+    }
+
+}
+</script>
+BOTON ACTIVA EL DIV
+<button onclick="document.getElementById('titulo').style.display='block'" style="width:auto;">Editar</button>

@@ -1,0 +1,118 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <form method="get" action="#">
+	<div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	
+   
+   echo '<table>
+   <thead>
+              <tr>
+                 <th> <a href="index.php?c=calendario&orden=ID&m=eliminar-evento">No.</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre&m=eliminar-evento"> Nombre</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=descripcion&m=eliminar-evento"> Descripción</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_evento&m=eliminar-evento"> Fecha</a> </th>
+				<th> <a href="index.php?c=calendario&orden=mail_usuario_creador&m=eliminar-evento"> Propietario</a> </th>
+				<th> <a href="index.php?c=calendario&orden=mail_usuarios_permisos&m=eliminar-evento"> Pueden editar</a> </th>
+				<th> <a href="index.php?c=calendario&orden=lista_mails&m=eliminar-evento"> Destinatarios</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre_calendario&m=eliminar-evento"> Calendario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=activo&m=eliminar-evento"> Estado</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=destino_url&m=eliminar-evento"> Destino url</a> </th>
+				<th> <a href="index.php?c=calendario&orden=color&m=eliminar-evento"> Indicadores</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_creado&m=eliminar-evento"> Creado</a> </th>
+              </tr>
+            </thead>
+            <tbody><!--!important -->'; 
+            $contador=0;
+		while ($indice = mysqli_fetch_array($resultado, MYSQL_ASSOC)) {
+			if($_SESSION['session_email'] == $indice['mail_usuario_creador'])
+			{
+		echo '<tr>';
+		foreach ($indice as $ind => $col_value) {
+			//COMPROBAMOS EL ID PARA ASIGNARLO AL RADIO 
+			if($ind=="ID")
+			{
+				$contador+=1;
+				
+				echo '<td data-label="'.$ind.'"><input type="checkbox" name="'.$ind.'_'.$contador.'" value="'.$col_value.'" ></td>';
+			}
+			
+			//FIN COMPROBAR ID
+			
+			
+			//*****************************************************---------------------------------------
+					else if($ind == "lista_mails")
+					{
+						echo '<td data-label="'.$ind.'">';
+						$lista_mails=explode(",", $col_value);
+							for($i=0; $i<count($lista_mails); $i++)
+							{
+								echo $lista_mails[$i];
+								echo '<br>';
+							}
+						echo '</td>';
+					}
+					else if($ind == "mail_usuarios_permisos")
+					{
+						echo '<td data-label="'.$ind.'">';
+						$lista_mails_permisos=explode(",", $col_value);
+							for($i=0; $i<count($lista_mails_permisos); $i++)
+							{
+								echo $lista_mails_permisos[$i];
+								echo '<br>';
+							}
+						echo '</td>';
+					}
+					else if($ind == "destino_url")
+					{
+						echo '<td data-label="'.$ind.'"><a href="'.$col_value.'" target="_blank">'.$col_value.'</a></td>';
+					}
+					else if($ind == "color")
+					{
+						$colores=explode(",", $col_value);
+						echo '<td data-label="'.$ind.'"><div style="text-align:center;">Vigente<br><span style="display: inline-block; border-radius:50%;  width:15px; height:15px; background-color:'.$colores[0].';"></span></div><div style="text-align:center;">Pasado<br><span style="display: inline-block; border-radius:50%; width:15px; height:15px; background-color:'.$colores[1].';"></span></div></td>';
+					}
+					else
+					{
+						if($ind == "id_calendario")
+						{
+							
+						}
+						else
+						{
+							echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+						}
+					}
+					//*****************************************************---------------------------------------
+				}
+				echo '</tr>';
+			}
+				}
+				echo "<tbody></table>";
+				echo '<input type="hidden" name="c" value="'.$controlador.'">
+    <input type="hidden" name="m" value="'.$metodo.'"><input type="hidden" name="guardar_eliminar" value="1">';
+			
+    ?>
+    
+   
+    </div>
+	<button type="submit" class="w3-button w3-block w3-black" style="width: 30%;">Eliminar</button>
+	 </form>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

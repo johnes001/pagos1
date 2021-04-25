@@ -1,0 +1,57 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo ucwords($metodo).' '. ucwords($controlador); ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	   
+   echo '<table>
+   <thead>
+              <tr>
+               <th> <a href="index.php?c=calendario&orden=ID&m=listar"> No</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre&m=listar"> Nombre</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=mail_creador&m=listar"> Propietario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=activo&m=listar"> Estado</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=url&m=listar"> Visualizar</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=grupo&m=listar"> Tipo</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=fecha&m=listar"> Fecha</a> </th> 
+				
+              </tr>
+            </thead>
+            <tbody><!--!important -->';
+		while ($indice = mysqli_fetch_array($resultado, MYSQLI_ASSOC)) {
+		echo "<tr>";
+		foreach ($indice as $ind => $col_value) {
+			if($ind == "url")
+			{
+				echo '<td data-label="'.$ind.'"><a href="'.$col_value.'">'.$col_value.'</a></td>';
+			}
+			else
+			{
+				echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+			}
+        
+		}
+		echo "</tr>";
+		}
+		echo "<tbody></table>";
+		mysqli_free_result($resultado);
+		unset($resultado);
+    ?>
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

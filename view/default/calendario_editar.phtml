@@ -1,0 +1,108 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	  /*
+      //ENLACES TABLA
+while ($indice = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+		
+		foreach ($indice as $ind => $col_value) {
+        echo '&ltth&gt &lta href="index.php?c=productos&orden='.$ind.'"&gt &lt/a&gt &lt/th&gt &ltbr&gt<br>';
+		}
+	}
+//ENLACES TABLA   
+   */
+   
+   echo '<table>
+   <thead>
+              <tr>
+                <th> <a href="index.php?c=calendario&orden=ID&m=editar">No.</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre&m=editar"> Nombre calendario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=mail_creador&m=editar"> Propietario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=activo&m=editar"> Estado</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=url&m=editar"> Ruta</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=grupo&m=editar"> Tipo</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha&m=editar"> Fecha</a> </th>
+				
+              </tr>
+            </thead>
+            <tbody><!--!important -->';
+		while ($indice = mysqli_fetch_array($resultado, MYSQL_ASSOC)) {
+			if($_SESSION['session_email'] == $indice['mail_creador'])
+			{
+		echo '<form method="get" action="#"><tr>';
+		foreach ($indice as $ind => $col_value) {
+			//COMPROBAMOS EL ID PARA ASIGNARLO AL RADIO 
+			if($ind=="ID")
+			{
+				echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+				echo '<td data-label="'.$ind.'"><input type="radio" name="id" value="'.$col_value.'" onchange="this.form.submit()"></td>';
+			}
+			else if($ind == "url")
+			{
+				//echo '<td data-label="'.$ind.'"><textarea cols="100"><div style="position: relative;    padding-bottom: 75%;    height: 0;    overflow: hidden;"><embed style="position: absolute;    top:0;    left: 0;    width: 100%;    height: 100%;" src="'.$col_value.'"></div></textarea><br><a href="'.$col_value.'">&#x27a5;</a></td>';
+
+				echo '<td data-label="'.$ind.'"><textarea cols="100">
+				
+				<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+				
+
+
+				<style type="text/css">
+				
+				#cale {
+					position: relative; 
+					padding-bottom: 75%;    
+					height: 15em;
+				}
+					@media screen and (max-width: 911px) {
+						
+					#cale {
+					position: relative; 
+					padding-bottom: 100vh; 
+					height: 0;
+				}
+				@media screen and (max-width: 700px) {
+						
+					#cale {
+					position: relative; 
+					padding-bottom: 150vh; 
+					height: 0;
+				}
+				}
+				</style>
+				<div id="cale"><iframe frameborder="0" scrolling="no" style=" position: absolute;    top:0;    left: 0;    width: 100%;    height: 100%;" src="'.$col_value.'"></iframe></div></textarea><br><a href="'.$col_value.'">&#x27a5;</a></td>';
+			}
+			//FIN COMPROBAR ID
+			else
+			{
+				echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+				echo '<input type="hidden" name="'.$ind.'" value="'.$col_value.'">';
+			}
+				}
+				echo '</tr><input type="hidden" name="c" value="'.$controlador.'">
+    <input type="hidden" name="m" value="'.$metodo.'"><input type="hidden" name="editar_form" value="1"></form>';
+			}
+				}
+				echo "<tbody></table>";
+			
+    ?>
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

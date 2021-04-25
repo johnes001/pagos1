@@ -1,0 +1,100 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo ucwords($metodo).' '. ucwords($controlador); ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	   
+   echo '<table>
+   <thead>
+              <tr>
+               <th> <a href="index.php?c=calendario&orden=ID&m=listar-eventos"> No</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre&m=listar-eventos"> Nombre</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=descripcion&m=listar-eventos"> Descripción</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=fecha_evento&m=listar-eventos"> Fecha</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=mail_usuario_creador&m=listar-eventos"> Creado por</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=mail_usuarios_permisos&m=listar-eventos"> Pueden modificar</a> </th>
+				<th> <a href="index.php?c=calendario&orden=lista_mails&m=listar-eventos"> Destinatarios</a> </th>
+				<th> <a href="index.php?c=calendario&orden=nombre_calendario&m=listar-eventos"> Calendario</a> </th>
+				<th> <a href="index.php?c=calendario&orden=activo&m=listar-eventos"> Activo</a> </th>
+				<th> <a href="index.php?c=calendario&orden=destino_url&m=listar-eventos"> Destino url</a> </th>
+				<th> <a href="index.php?c=calendario&orden=color&m=listar-eventos"> Colores</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_caducado&m=listar-eventos"> Caduca</a> </th>
+				<th> <a href="index.php?c=calendario&orden=fecha_creado&m=listar-eventos"> Creado</a> </th> 
+				
+              </tr>
+            </thead>
+            <tbody><!--!important -->';
+            $colores=array();
+		while ($indice = mysqli_fetch_array($resultado, MYSQLI_ASSOC)) {
+		echo "<tr>";
+		foreach ($indice as $ind => $col_value) {
+			if($ind == "lista_mails")
+			{
+				//echo '<td data-label="'.$ind.'"><a href="'.$col_value.'" target="_blank">'.$col_value.'</a></td>';
+				echo '<td data-label="'.$ind.'">';
+				$lista_mails=explode(",", $col_value);
+					for($i=0; $i<count($lista_mails); $i++)
+					{
+						echo $lista_mails[$i];
+						echo '<br>';
+					}
+				echo '</td>';
+			}
+			else if($ind == "mail_usuarios_permisos")
+			{
+				//echo '<td data-label="'.$ind.'"><a href="'.$col_value.'" target="_blank">'.$col_value.'</a></td>';
+				echo '<td data-label="'.$ind.'">';
+				$lista_mails_permisos=explode(",", $col_value);
+					for($i=0; $i<count($lista_mails_permisos); $i++)
+					{
+						echo $lista_mails_permisos[$i];
+						echo '<br>';
+					}
+				echo '</td>';
+			}
+			else if($ind == "destino_url")
+			{
+				echo '<td data-label="'.$ind.'"><a href="'.$col_value.'" target="_blank">'.$col_value.'</a></td>';
+			}
+			else if($ind == "color")
+			{
+				$colores=explode(",", $col_value);
+				echo '<td data-label="'.$ind.'"><div style="text-align:center;">Vigente<span style="display: inline-block; border-radius:50%;  width:15px; height:15px; background-color:'.$colores[0].';"></span></div><div style="text-align:center;">Pasado<span style="display: inline-block; border-radius:50%; width:15px; height:15px; background-color:'.$colores[1].';"></span></div></td>';
+			}
+			else
+			{
+				if($ind == "id_calendario")
+				{
+					
+				}
+				else
+				{
+					echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+				}
+			}
+        
+		}
+		echo "</tr>";
+		}
+		echo "<tbody></table>";
+		mysqli_free_result($resultado);
+		unset($resultado);
+    ?>
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

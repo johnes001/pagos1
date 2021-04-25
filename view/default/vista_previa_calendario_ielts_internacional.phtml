@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es" style="width:100%;">
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,900&display=swap" rel="stylesheet">
+	<title>Vista calendarios</title>
+	<meta charset="utf-8">
+	<style>
+		#contenedor_principal
+		{
+			font-family: 'Lato', sans-serif;
+			overflow:auto;
+			width: 100%;
+			margin: 0;
+		}
+		#mostrar_calendario
+		{
+			background-color: #f8f8f8;
+			width: 96%;
+			padding: 2%;
+			margin-bottom: 15px;
+			
+		}
+		#mostrar_calendario h4{
+			font-size: 1.5em;
+			font-weight: 400;
+			color: #777777;
+		}
+		#mostrar_calendario h1{
+			font-size: 2em;
+			font-weight: 400;
+			color: #333;
+		}
+		#cont_calendario
+		{
+			border-style: solid;
+			border-width: 1px;
+			border-color: #898989;
+			border-radius: 10px;
+			overflow: auto;
+			width: 98%;
+			padding-top: 20px;
+			padding-bottom: 15px;
+			padding-left: 1%;
+			background-color: #fff;
+		}
+		.contenedor {
+			
+			font-size: .9em;
+			float: left;
+			margin-left: 2%;
+			width: 46%;	
+			min-width: 450px;			
+		}
+		.contenedor table {
+			width: 100%;
+		}
+		.contenedor caption {
+			text-align:center;
+			padding:5px 10px;
+			color: #777777;
+			font-weight:bold;
+			font-size: 1.5em;
+			padding-bottom: 15px;
+		}
+		.contenedor th {
+			
+			background-color:#E0E0E0;
+			color:#333;
+			width: 14.3%;
+			padding: 1em;
+			font-weight: 900;
+		}
+		.contenedor td {
+			font-weight: 400;
+			text-align:right;
+			padding: .6em;
+			font-size: .9em;
+			background-color: #fff;
+			
+		}
+		.contenedor a {
+			text-decoration: none;
+			color:#5c5c5c;
+		}
+		.enlace {
+		width: 100%;
+		height: auto;
+		}
+		.contenedor td:hover {
+		background-color: #fff;
+		opacity: 0.8;
+  		filter: alpha(opacity=50); /* For IE8 and earlier */
+  		}
+  		
+		/********************************************************
+		
+		 select estilos 
+		
+		
+		**********************************************************/
+		#mostrar_calendario select {
+		width: 40%;
+		padding:12px;
+		
+		border-radius:4px;
+		background: #fff;
+		color:#888;
+		border: solid 1px;
+		outline:none;
+		display: inline-block;
+		-webkit-appearance:none;
+		-moz-appearance:none;
+		appearance:none;
+		cursor:pointer;
+		}
+
+		#mostrar_calendario label {position:relative; margin-right: 2%;}
+		#mostrar_calendario label:after {
+		  background-color: #fff;
+			content:'\025c2 \025B8';
+			font:11px "Consolas", monospace;
+			color:#aaa;
+			-webkit-transform:rotate(90deg);
+			-moz-transform:rotate(90deg);
+			-ms-transform:rotate(90deg);
+			transform:rotate(90deg);
+			right:8px; top:2px;
+			padding:0 0 2px;
+			border-bottom:1px solid #fff;
+			position:absolute;
+			pointer-events:none;
+		}
+		#mostrar_calendario label:before {
+			content:'';
+			right:6px; top:0px;
+			width:20px; height:20px;
+			background:#fff;
+			position:absolute;
+			pointer-events:none;
+			display:block;
+		}
+		#mostrar_calendario select option {
+			padding: 12px;
+		}
+		#mostrar_calendario img {
+			vertical-align: bottom;
+		}
+		#mostrar_calendario img:hover {
+			opacity: 0.8;
+  		filter: alpha(opacity=50); /* For IE8 and earlier */
+		}
+		#cont_calendario .boton{
+			width: auto;
+			height: auto;
+			border: solid 1px #ccc;
+			border-radius: 10px;
+			padding: 1% 5%;
+			font-size: .5em;
+			color: #333;
+			background-color: #ccc;
+			margin-left: 3%;
+			
+		}
+		#cont_calendario .botones_calendario {
+			
+			padding-left: 92%;
+			
+			height: auto;
+			
+		}
+		#cont_calendario .botones_calendario .boton:hover {
+			background-color: #777777;
+			color: #ccc;
+		}
+		#cont_calendario a {
+			text-decoration: none;
+		}
+		#cont_calendario .botones_calendario form {
+			display:inline;
+		}
+		
+		/* Clase que tendra el tooltip 
+		*
+		*
+		*
+		*/
+
+		.cssToolTip {
+			position: relative; /* Esta clase tiene que tener posicion relativa */
+
+			
+			
+		}
+
+		/* El tooltip */
+
+		.cssToolTip span {
+			background: #E8FFD4; 
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-shadow: 5px 5px 5px #ccc;
+			color: #000;
+			display: none; /* El tooltip por defecto estara oculto */
+			text-align: left !important;
+			
+			
+			width: 150px;
+			font-size: 1em;
+			padding: 10px 10px 10px 10px;
+			
+			position: absolute; /* El tooltip se posiciona de forma absoluta para no modificar el aspezto del resto de la pagina */
+
+			top: -70px; /* Posicion apartir de la parte superior del primer elemento padre con posicion relativa */
+
+			left: -50px; /* Posicion apartir de la parte izquierda del primer elemento padre con posicion relativa */
+
+			z-index: 1000; /* Poner un z-index alto para que aparezca por encima del resto de elementos */
+
+		}
+
+		/* El tooltip cuando se muestra */
+
+		.cssToolTip:hover span {
+			display: inline; /* Para mostrarlo simplemente usamos display block por ejemplo */
+
+		}
+
+	</style>
+</head>
+ 
+<body style="margin: 0; width:100%;">
+<div id="contenedor_principal">
+	
+	<div id="mostrar_calendario">
+		<h1>Register IELTS Test</h1>
+		<form name="centro_module" method="post">
+		<label>
+			
+    <select name="testmoduleid">
+     <?php 
+     if($_POST['testmoduleid'] == 1)
+     {
+        echo '<option selected value="'.$_POST['testmoduleid'].'">IELTS Academic</option>';
+		} 
+		else if ($_POST['testmoduleid'] == 2)  
+		{
+        echo '<option selected value="'.$_POST['testmoduleid'].'">IELTS General</option>';
+		}
+		else 
+		{
+        echo '<option value="0" selected >- Select Test Module - </option>';
+		}            
+        ?><!-- poner condicional para mostrar la variable si existe post -->
+        <option value="1">IELTS Academic</option>
+        <option value="2">IELTS General</option>
+     
+    </select>
+</label>
+<label>
+    <select name="testCentreLocationId">
+     <?php 
+		if($_POST['testCentreLocationId'] == 2791)
+		{
+        echo '<option selected value="'.$_POST['testCentreLocationId'].'">Dominican Republic</option>';
+		} 
+		else if ($_POST['testCentreLocationId'] == 2709)  
+		{
+        echo '<option selected value="'.$_POST['testCentreLocationId'].'">Cayman Islands</option>';
+		}
+		
+		else 
+		{
+        echo '<option value="0" selected >- Select Location - </option>';
+		}            
+        ?>
+        <!-- poner condicional para mostrar la variable si existe post -->
+        <option value="2791">Dominican Republic</option>
+        <option value="2709">Cayman Islands</option>
+       
+     
+    </select>
+</label>
+<input type="hidden" name="mostrar_calendario" value="1">
+<input type="hidden" name="month" value="<?php echo date("n"); ?>">
+<input type="hidden" name="year" value="<?php echo date("Y"); ?>">
+
+<a style="color: #fff; font-weight:bold;" href="javascript:document.centro_module.submit();"><img src="view/default/images/boton_calendar.svg" height="45px"></a>
+		</form>
+	</div>
+	
+<?php
+if($_POST['testCentreLocationId'] != 0 && $_POST['testmoduleid'] != 0)
+{
+	
+		echo '<div id="mostrar_calendario">
+				<h4>Please select your prefered test date</h4>
+			<div id="cont_calendario"><div class="botones_calendario">';
+			if($_POST['month'] != date("n") || $_POST['year'] != date("Y"))
+			{
+				echo '<form name="back" method="post"><input type="hidden" name="testCentreLocationId" value="'.$_POST['testCentreLocationId'].'"><input type="hidden" name="testmoduleid" value="'.$_POST['testmoduleid'].'">';
+				if($_POST['month'] == 1)
+				{
+				echo '<input type="hidden" name="month" value="12">';
+				echo '<input type="hidden" name="year" value="'; echo $_POST['year']-1; echo '">';
+				}
+				else
+				{
+					echo '<input type="hidden" name="month" value="'; echo $_POST['month']-1; echo '">';
+					echo '<input type="hidden" name="year" value="'.$_POST['year'].'">';
+				}
+				echo '<input type="hidden" name="next" value="1"><input type="hidden" name="mostrar_calendario" value="1"><a href="javascript:document.back.submit();"><span class="boton">&#9668;</span></a></form>';
+			}
+	echo '<form name="next" method="post"><input type="hidden" name="testCentreLocationId" value="'.$_POST['testCentreLocationId'].'"><input type="hidden" name="testmoduleid" value="'.$_POST['testmoduleid'].'">';
+	if($_POST['month'] == 12)
+	{
+	echo '<input type="hidden" name="month" value="1">';
+	echo '<input type="hidden" name="year" value="'; echo $_POST['year']+1; echo '">';
+	}
+	else
+	{
+		echo '<input type="hidden" name="month" value="'; echo $_POST['month']+1; echo '">';
+		echo '<input type="hidden" name="year" value="'.$_POST['year'].'">';
+	}
+	 echo '<input type="hidden" name="back" value="'.$_POST['back'].'"><input type="hidden" name="mostrar_calendario" value="1"><a href="javascript:document.next.submit();"><span class="boton">&#9658;</span></a>
+	</form>
+	</div>';
+//************* IMPRESION MULTIPLE DE CALENDARIOS
+
+$month=$_POST['month'];
+$year=$_POST['year'];
+$cont_form=0;
+$title="";
+$title2="";
+for($i0=0; $i0<=1; $i0++)
+{
+			
+			
+			$month+=$i0;//+$incremento_mes; //+$variable_get INCREMENTO O DISMINUIR (adelantar o atras meses)
+			//echo $month=date("n")+$i0+$incremento_mes; //+$variable_get INCREMENTO O DISMINUIR (adelantar o atras meses)
+			//$year=date("Y");
+			for($a=13, $b=1; $a<=24; $a++, $b++)
+			{
+			if($month == $a && $i0 == 1)
+			{
+				$month=$b;
+				$year=date("Y")+1;
+			}
+			
+			}
+			if($month == 0 && $i0 == 0)
+			{
+				$month=12;
+				$year-=1;
+			}
+		
+			$diaActual=date("j");
+			//$diaActual=29;
+			
+			
+			# Obtenemos el dia de la semana del primer dia
+			# Devuelve 0 para domingo, 6 para sabado
+			
+			$diaSemana=date("w",mktime(0,0,0,$month,1,$year))+7;
+			
+			# Obtenemos el ultimo dia del mes
+			
+			$ultimoDiaMes=date("d",(mktime(0,0,0,$month+1,1,$year)-1));
+			$last_cell=$diaSemana+$ultimoDiaMes;
+echo '<div class="contenedor"><table  cellspacing= "0px">
+	<caption>'.$meses[$month].' '.$year.' </caption>
+	<tr>
+		<th>Mo</th><th>Tu</th><th>We</th><th>Th</th>
+		<th>Fr</th><th>Sa</th><th>Su</th>
+	</tr>
+	<tr>';
+		// hacemos un bucle hasta 42, que es el máximo de valores que puede
+		// haber... 6 columnas de 7 dias
+		for($i=1;$i<=43;$i++)
+		{
+			if($i==$diaSemana)
+			{
+				// determinamos en que dia empieza
+				$day=1;
+			}
+			if($i<$diaSemana || $i>=$last_cell)
+			{
+				// celda vacia
+				echo "<td>&nbsp;</td>";
+			}
+			else
+			{
+				// mostramos el evento
+				$fecha_evento=$year;
+				$fecha_evento.="-";
+				if($month < 10)
+				{
+				$fecha_evento.=0;
+				}
+				$fecha_evento.=$month;
+				$fecha_evento.="-";
+				if($day < 10)
+				{
+				$fecha_evento.=0;
+				}
+				$fecha_evento.=$day;
+				
+				$Ob_evento->inicializar($fecha_evento,$_REQUEST['calendar'],'activo');
+				$parametros=$Ob_evento->calendario_eventos($fecha_actual);
+				//echo "<br>Dia = ".$day;
+				//formatear la celda *********************************************************************
+								
+				if(count($parametros) < 2)
+				{
+				echo '<td ';
+				foreach($parametros as $indice => $fila)
+				{
+					foreach($fila as $nombre => $valor)
+					{
+						if($nombre == "color")
+						{
+							echo ' style="background-color: '.$valor.'; "';
+						}
+						if($nombre == "nombre" || $nombre == "descripcion")
+						{
+							if ($nombre == "nombre")
+							{
+								$title.='<span>'.$valor;
+								$title.=":<br>";
+							}
+							
+							else
+							{
+								$title.=$valor.'</span>';
+								
+							}
+						}
+						
+						
+						if($nombre == "destino_url")
+						{
+							echo '><form action="#" method="POST" name="form'.$i.'">
+							<input type="hidden" name="calendar" value="'.$_REQUEST['calendar'].'">
+							<input type="hidden" name="m" value="listar">
+							<input type="hidden" name="m2" value="enviar">
+							<input type="hidden" name="testmoduleid" value="'.$_POST['testmoduleid'].'">
+							<input type="hidden" name="testCentreLocationId" value="'.$_POST['testCentreLocationId'].'">
+							<input type="hidden" name="url_destino" value="'.$valor.'">';
+							if($_POST['testCentreLocationId'] == 2120)
+							{
+								echo '<input type="hidden" name="testCentreId" value="18301">
+								<input type="hidden" name="testVenueId" value="2347">';
+							}
+							else
+							{
+								echo '<input type="hidden" name="testCentreId" value="17085">
+								<input type="hidden" name="testVenueId" value="2208">';
+							}
+							echo '<a style="color: #fff; font-weight:bold;" href="javascript:document.form'.$i.'.submit();"';
+						}
+						
+						
+					}
+				}
+				echo ' ><div class="enlace cssToolTip">'.$day.' '.$title.'</div></a></form></td>';
+				
+				}
+				else 
+				{
+					
+					echo '<td >';
+				foreach($parametros as $indice => $fila)
+				{
+					foreach($fila as $nombre => $valor)
+					{
+						$cont_form+=1;
+						if($nombre == "color" || $nombre == "nombre" || $nombre == "descripcion")
+						{
+							if($nombre == "color")
+							{
+							echo '<div style="float: left; background-color: '.$valor.'; border-radius: 50%; width: 8px; height: 8px; margin-left: 2px;" >';
+							}
+							if($nombre == "nombre")
+							{
+								$title2.='<span>'.$valor.':<br>';
+							}
+							if($nombre == "descripcion")
+							{
+								$title2.=$valor.'</span>';
+							}
+							
+						}
+						
+												
+						if($nombre == "destino_url")
+						{
+							echo '<form action="#" method="POST" name="form_'.$cont_form.'">
+							<input type="hidden" name="calendar" value="'.$_REQUEST['calendar'].'">
+							<input type="hidden" name="m" value="listar">
+							<input type="hidden" name="m2" value="enviar">
+							<input type="hidden" name="testmoduleid" value="'.$_POST['testmoduleid'].'">
+							<input type="hidden" name="testCentreLocationId" value="'.$_POST['testCentreLocationId'].'">
+							<input type="hidden" name="url_destino" value="'.$valor.'">';
+							if($_POST['testCentreLocationId'] == 2120)
+							{
+								echo '<input type="hidden" name="testCentreId" value="18301">
+								<input type="hidden" name="testVenueId" value="2347">';
+							}
+							else
+							{
+								echo '<input type="hidden" name="testCentreId" value="17085">
+								<input type="hidden" name="testVenueId" value="2208">';
+							}
+
+							echo '<a href="javascript:document.form_'.$cont_form.'.submit();"><div style="border-radius: 50%; width: 8px; height: 8px; " class="cssToolTip">'.$title2.'</div></a></form></div>';
+							$title2="";
+						}
+
+						
+					}
+				}
+				echo $day."</td>";
+				}
+				
+				$title="";					
+				$day++;
+				
+				
+			}
+			// cuando llega al final de la semana, iniciamos una columna nueva
+			if($i%7==0)
+			{
+				echo "</tr><tr>";
+			}
+		}
+	
+echo '</tr>
+</table></div>';
+
+} //fin for
+//************* IMPRESION MULTIPLE DE CALENDARIOS
+echo '</div>';
+} //fin IF mostrar calendario
+ ?>
+
+ </div>
+</div><!--contenedor principal-->
+</body>
+</html>
+

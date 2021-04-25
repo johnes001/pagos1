@@ -1,0 +1,28 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	    
+   echo '<h2>'.$titulo.'</h2><h4>'.$mensaje.'</h4>';
+	echo '<textarea rows="40" cols="150" readonly>'.$formulario.'</textarea>';
+    ?>
+	
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

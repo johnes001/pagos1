@@ -1,0 +1,52 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:70%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10">
+    
+    <form method="get" class="w3-container" action="#">
+    <div class="w3-section">
+      <label>Nombre</label>
+     
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="NOMBRE" required="" type="text" value="<?php echo $resultado['NOMBRE']; ?>">
+    </div>
+    <div class="w3-section">
+      <label>Apellidos</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="APELLIDOS" required="" type="text" value="<?php echo $resultado['APELLIDOS']; ?>">
+    </div>
+    <div class="w3-section" style="width: 33%;	float: left;">
+      <label>Documento</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="CEDULA" required="" value="<?php echo $resultado['CEDULA']; ?>">
+    </div>
+     <div class="w3-section" style="width: 33%;	float: right;">
+      <label>Correo</label>
+     
+		   <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="MAIL" required="" value="<?php echo $resultado['MAIL']; ?>">
+		  
+    </div>
+    <div class="w3-section" style="width: 34%;	float: right;">
+      <label>Contrase&ntilde;a nueva</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%; " name="CONTRASENA">
+    </div>
+    <input type="hidden" name="guardar_editar" value="1">
+    <input type="hidden" name="c" value="<?php echo $controlador; ?>">
+    <input type="hidden" name="m" value="<?php echo $metodo ?>">
+    <input type="hidden" name="ID" value="<?php echo $resultado['ID']; ?>">
+    <button type="submit" class="w3-button w3-block w3-black" style="width:30%;">Guardar</button>
+  </form>
+
+    
+   
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

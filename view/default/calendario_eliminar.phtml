@@ -1,0 +1,72 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <form method="get" action="#">
+	<div class="listar w3-hover-shadow">
+    
+
+      <?php 
+	
+   
+   echo '<table>
+   <thead>
+              <tr>
+                 <th> <a href="index.php?c=calendario&orden=ID&m=eliminar">No.</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=nombre&m=eliminar"> Nombre calendario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=mail_creador&m=eliminar"> Propietario</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=activo&m=eliminar"> Estado</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=url&m=eliminar"> Ruta</a> </th>
+				<th> <a href="index.php?c=calendario&orden=grupo&m=eliminar"> Tipo</a> </th> 
+				<th> <a href="index.php?c=calendario&orden=fecha&m=eliminar"> Fecha</a> </th>
+              </tr>
+            </thead>
+            <tbody><!--!important -->'; 
+            $contador=0;
+		while ($indice = mysqli_fetch_array($resultado, MYSQL_ASSOC)) {
+			if($_SESSION['session_email'] == $indice['mail_creador'])
+			{
+		echo '<tr>';
+		foreach ($indice as $ind => $col_value) {
+			//COMPROBAMOS EL ID PARA ASIGNARLO AL RADIO 
+			if($ind=="ID")
+			{
+				$contador+=1;
+				
+				echo '<td data-label="'.$ind.'"><input type="checkbox" name="'.$ind.'_'.$contador.'" value="'.$col_value.'" ></td>';
+			}
+			
+			//FIN COMPROBAR ID
+			else
+			{
+				
+				echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+			}
+				}
+				echo '</tr>';
+			}
+				}
+				echo "<tbody></table>";
+				echo '<input type="hidden" name="c" value="'.$controlador.'">
+    <input type="hidden" name="m" value="'.$metodo.'"><input type="hidden" name="guardar_eliminar" value="1">';
+			
+    ?>
+    
+   
+    </div>
+	<button type="submit" class="w3-button w3-block w3-black" style="width: 30%;">Eliminar</button>
+	 </form>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

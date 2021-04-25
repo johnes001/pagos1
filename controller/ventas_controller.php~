@@ -1,0 +1,77 @@
+<?php
+     //llega desde la plantilla, si no tiene valor es igual a listar
+
+if(!isset($_REQUEST['m']))
+{
+    $metodo="listar";
+}
+else
+{
+    $metodo=$_REQUEST['m'];
+}
+
+$conexion=new base($host,$user_base,$pass_base,$nom_base);
+
+switch ($metodo) {
+    case "listar":
+        echo "LISTAR DATOS <br>";
+        
+        if(!isset($_REQUEST['orden']))
+        {
+        	$orden="ID";
+        }
+        else{
+        	$oden=$_REQUEST['orden'];
+        }
+        $orden.=" ASC";
+        $resultado=$conexion->listar('PAGOS', $orden);
+        require_once($template_ruta.'ventas_listar.phtml');
+        
+//ENLACES TABLA
+while ($indice = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+		
+		foreach ($indice as $ind => $col_value) {
+        echo '<a href="index.php?c=ventas&orden='.$ind.'" data-label="'.$ind.'">'.$col_value.'</td>';
+		}
+	}
+//ENLACES TABLA        
+        
+        break;
+    case "insertar":
+        echo "INSERTAR DATOS <br>";
+        /*
+        foreach ($_REQUEST as $colum => $valor)  
+        {
+            echo "<br> COLUMNA ".$columna=$colum;
+            echo "<br> DATO ".$dato = $valor;
+            echo "<br><br> COLUMNA2 ".$columna;
+            if(is_numeric($dato))
+            {
+                $tipo_dato='i';
+            }
+            else
+            {
+                $tipo_dato='s';
+            }
+            echo "<br> TIPO DATO ".$tipo_dato;
+            //insertando datos a la base de datos 
+            
+            //IMPORTANTE, $columna $dato SON ARRAYS
+			$datos=array("PRODUCTO" => "PRODUCTO",	"ID_TRANSACCION" => "ID_TRANSACCION",	"REFERENCIA" => "REFERENCIA",	"COD_SEGUIMIENTO" => "COD_SEGUIMIENTO",	"BANCO_PSE" => "BANCO_PSE",	"ENTIDAD" => "ENTIDAD",	"MONEDA" => "MONEDA",	"VALOR" => "VALOR");
+		
+            $conexion->insertar("PAGOS",$datos,$conexion);
+            */
+        //}
+        //unset($dato); // rompe la referencia con el último elemento
+        
+        break;        
+    case "editar":
+        echo "EDITAR DATOS <br>";
+        echo "i es un pastel";
+        break;
+    case "eliminar":
+        echo "ELIMINAR DATOS <br>";
+        echo "i es un pastel";
+        break;        
+}
+?>

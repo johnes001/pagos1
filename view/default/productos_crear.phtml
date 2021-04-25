@@ -1,0 +1,53 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:70%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10">
+    
+    
+    <form method="get" class="w3-container" action="#">
+    <div class="w3-section">
+      <label>Titulo (Sin tíldes ni  ñ)</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="TITULO" required="" type="text" maxlength="40">
+    </div>
+    <div class="w3-section">
+      <label>Descripci&oacute;n</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="DESCRIPCION" required="" type="text">
+    </div>
+    <div class="w3-section" style="width: 33%;	float: left;">
+      <label>Precio (Sin puntos ni comas)</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="PRECIO" required="">
+    </div>
+     <div class="w3-section" style="width: 33%;	float: right;">
+      <label>Activo</label>
+      <select name="ACTIVO" class="w3-input w3-border w3-hover-border-black" style="width:100%;">
+		  <option value="si" selected>Si</option>
+		  <option value="no">No</option>
+		</select>
+    </div>
+    <div class="w3-section" style="width: 34%;	float: right;">
+      <label>Grupo</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%; " name="GRUPO" required="">
+    </div>
+    <input type="hidden" name="guardar" value="1">
+    <input type="hidden" name="c" value="<?php echo $_REQUEST['c']; ?>">
+    <input type="hidden" name="m" value="<?php echo $_REQUEST['m']; ?>">
+    <input type="hidden" name="IMAGEN" value="Sin Imagen">
+    <button type="submit" class="w3-button w3-block w3-black" style="width:30%;">Guardar</button>
+  </form>
+
+    
+   
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

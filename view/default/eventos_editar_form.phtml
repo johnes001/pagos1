@@ -1,0 +1,134 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:70%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10">
+    
+     <div class="w3-section" style="border: 1px solid #D8D8D8;  border-radius: 10px;  padding: 1em; box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);"><!--recordatorio -->
+    <form method="get" class="w3-container" action="#">
+		
+    <div class="w3-section">
+      <span class="spantutulos">Nombre del Evento</span>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="NOMBRE" required="" type="text" value="<?php echo $_REQUEST['nombre'] ?>" >
+    </div>
+    <div class="w3-section">
+      <span class="spantutulos">Descripción</span><span  title=" 1). Los usuarios visualizarán esta descripción si ponen el mouse encima del día en el calendario. 2). Deje en blanco si no desea mostrar información adicional a los usuarios. 3). Se enviará automaticamente a la lista de correos si crea un recordatorio." style="color: green; font-size: 1em; font-weight: bold;">(?)</span>
+      <textarea class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="DESCRIPCION"  > <?php echo $_REQUEST['descripcion'] ?></textarea>
+	
+    </div>
+  
+    
+    <div class="w3-section" style="width: 45%;	 float: left; ">
+     <span class="spantutulos">Activo</span>
+      <select name="ACTIVO" class="w3-input w3-border w3-hover-border-black" style="width:100%;">
+		  <option value="<?php echo $_REQUEST['activo'] ?>" selected><?php echo $_REQUEST['activo'] ?></option>
+		  <option value="inactivo">Desactivar</option>
+		  <option value="activo">Activar</option>
+		</select>
+    </div>
+     <div class="w3-section" style="width: 45%; margin-left: 10%; float: right;">
+     <span class="spantutulos">Fecha del Evento</span>
+      <input type="date" class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="FECHA_EVENTO" value="<?php echo $_REQUEST['fecha_evento'] ?>" >
+	
+    </div>
+    
+        <div class="w3-section" style="width: 45%;	 float: left;">
+      <span class="spantutulos" >Usuarios que pueden modificar este evento </span><span  title="(Recuerde que solo usuarios registrados en la aplicación pueden ir en esta casilla. poner solo los correos separados por comas ' , ', Eejmplo: correo@mail.com,correo2@mail.com)" style="color: green; font-size: 1em; font-weight: bold;">(?)</span>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="USUARIOS_PERMISOS" type="text" value="<?php echo $_REQUEST['mail_usuarios_permisos'] ?>">
+    </div>
+    
+     <div class="w3-section" style="width: 45%; margin-left: 10%; float: right;">
+     <span class="spantutulos">Fecha Inactivo</span>
+      <input type="date" class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="FECHA_INACTIVO" value="<?php echo $_REQUEST['fecha_inactivo'] ?>">
+    </div>
+    
+    </div><!--nombre evento -->
+     <div class="w3-section" style="border: 1px solid #D8D8D8;  border-radius: 10px;  padding: 1em; box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);"><!--recordatorio -->
+    <div class="w3-section">
+      <span class="spantutulos">Seleccionar calendario para vincular</span>
+      <select name="CALENDARIO" class="w3-input w3-border w3-hover-border-black" style="width:100%;">
+		  <?php
+		  echo '<option value="'.$_REQUEST['id_calendario'].','.$_REQUEST['nombre_calendario'].'">'.$_REQUEST['nombre_calendario'].'</option>';
+		  $id_nombre="";
+			while ($indice = mysqli_fetch_array($list_calendarios, MYSQL_ASSOC)) {
+			if($indice['activo']== "activo")
+				{
+			$id_nombre=$indice['ID'];
+			$id_nombre.=',';
+			$id_nombre.=$indice['nombre'];
+			echo '<option value="'.$id_nombre.'">'.$indice['nombre'].'</option>';
+				}
+			}
+			mysqli_free_result($list_calendarios);
+			unset($list_calendarios);
+		  ?>
+		</select>
+	
+    </div>
+
+   
+    <div class="w3-section" style="color: #fff; background: #19979c; width: 40%; margin-left: 5%;	float: left; border: 1px solid #F4F4F4;
+  border-radius: 5px;
+  padding: 2px;
+  box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);">
+     <span style="">Color vigente</span><hr>
+      <input type="color" name="COLOR1" value="<?php echo $_REQUEST['color1'] ?>">
+		
+    </div>
+    <div class="w3-section" style=" color: #fff; background: #19979c; width: 40%; margin-left: 10%; margin-right: 5%; float: left; border: 1px solid #F4F4F4;
+  border-radius: 5px;
+  padding: 2px;
+  box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75); ">
+     <span>Color caducado</span><hr>
+       <input type="color" name="COLOR2" value="<?php echo $_REQUEST['color2'] ?>">
+		 
+    </div>
+       
+   <div class="w3-section">
+      <span class="spantutulos">Destino (URL)</span><span title="Si desea que al dar click en el calendario redirija hacia otra pagina, ponga aquí la url de destino." style="color: green; font-size: 1em; font-weight: bold;"> (?)</span>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="DESTINO_URL" type="text" value="<?php echo $_REQUEST['destino_url'] ?>">
+    </div>
+    </div><!--destino-->
+     <div class="w3-section" style="border: 1px solid #D8D8D8;  border-radius: 10px;  padding: 1em; box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);"><!--recordatorio -->
+    <div class="w3-section">
+      <span class="spantutulos">Lista de correos a enviar recordatorio.</span>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="LISTA_MAILS" type="text" value="<?php echo $_REQUEST['lista_mails'] ?>" >
+    </div>
+    
+     
+    </div><!--recordatorio -->
+    </div><input type="hidden" name="guardar_editar" value="1">
+    <input type="hidden" name="c" value="<?php echo $_REQUEST['c']; ?>">
+    <input type="hidden" name="ID_EVENTO" value="<?php echo $_REQUEST['ID']; ?>">
+    <input type="hidden" name="m" value="<?php echo $_REQUEST['m']; ?>">
+    <input type="hidden" name="USUARIO_CREADOR" value="<?php echo $_REQUEST['mail_usuario_creador']; ?>">
+    
+    
+    <div class="w3-section"><button type="submit" class="w3-button w3-block w3-black" style="width:30%;">Guardar</button></div>
+  </form>
+
+    
+   
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

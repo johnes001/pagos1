@@ -1,0 +1,19 @@
+	.permisos
+	{
+		background-color: #19979c;
+		color: #fff;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	.etiqueta-permisos
+	{
+		width: 100%;
+		padding: 3px;
+		border-radius: 5px;
+		box-shadow: 2px 2px 4px #bfbfbf;
+		color: #19979c;
+		border: 1px solid #bfbfbf;
+		text-transform: capitalize;
+		background-color: #fff;
+		vertical-align: middle;
+	}

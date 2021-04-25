@@ -1,0 +1,40 @@
+EXAMENES
+	CREAR EXAMEN 
+	 Nombre, fechas (agregar fechas), códigos (rango/lista separada por comas)
+	 Activar fechas para registro
+	 
+	SEDES (editar la cantidad de cupos por sede)
+	 CREAR SEDE
+	  Nombre, Cantidad cupos, Exámenes que se pueden aplicar
+	 CREAR SALONES
+	  Nombre, Cantidad de puestos, Sede a la que pertenece
+	  
+		FILTRO: TIPO DE EXAMEN (TOEIC/MET/ETC/TODOS)(FECHA DEL EXAMEN/TODAS)
+		LISTAR TODOS LOS CANDIDATOS, 
+	 	Se visualiza (numero,examen, codigo-examen, nombres, apellidos, cc, fecha nacimiento, estado )
+			BOTONES:
+			EDITAR CANDIDATO (asignar codigos a los candidatos seleccionados - consecutivos a partir de )
+			ELIMINAR CANDIDATO (1 O VARIOS)
+			ESTADO DEL CANDIDATO(activo/inactivo/pendiente)
+			VERIFICAR DOCUMENTOS
+			IMPRIMIR REGISTROS (todos/seleccionados)
+			
+			
+			LENOVO        LNVNB161216  PF21F9Y4      NO DPK
+			
+			
+			____________________________________________________________________
+			
+			TABLA EXAMEN (ID 	NOMBRE 	EDITOR 	ESTADO 	FECHA_CREADO)
+			
+			
+			
+			----------------------------------------------------------------------
+			estilo de caja 
+			style="border: 1px solid #D8D8D8;  border-radius: 10px;  padding: 1em; box-shadow: -webkit-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);
+box-shadow: -2px 4px 13px -8px rgba(0,0,0,0.75);"
+
+
+abrir div
+<button onclick="document.getElementById('titulo').style.display='block'" style="width:auto;">Editar</button>

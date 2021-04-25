@@ -1,0 +1,46 @@
+TABLA EVENTOS (crear, editar, eliminar)
+id eventos
+Nombre del evento
+Descripcion del evento (url del archivo editable html)
+fecha del evento
+id usuario creador
+id usuarios permisos (pueden editar)
+lista correos a los que se enviara recordatorio
+id calendario
+activo
+fecha creacion
+
+TABLA EVENTOS_RECORDATORIO (crear, editar, eliminar)
+id recordatorio
+id eventos
+dia
+mes
+anio
+activo
+fecha recordatorio dias antes del evento (tabla recordatorio)
+
+TABLA CALENDARIO
+id calendario
+nombre calendario
+id usuario creador calendario
+activo
+fecha creado
+
+VISTAS DEL MODULO SESSION INICIADA
+
+EVENTOS Y RECORDATORIOS
+listar/editar
+crear
+eliminar
+visualizar calendarios  / codigo para exportar (iframe)
+Calendario personalizado (seleccionar los calendarios para generar codigo para la vista)
+
+VISTAS DE LOS CALENDARIOS
+ver calendario por nombre calendario y general (todos los grupos)
+
+MENU CALENDARIO
+listar,editar,crear,eliminar
+
+VERIFICAR ELIMINAR RECORDATORIO YA QUE NO ELIMINA PERO REDIRECCIONA AL CONTROLADOR VENTAS LISTAR
+
+

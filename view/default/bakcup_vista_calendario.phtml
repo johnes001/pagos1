@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,900&display=swap" rel="stylesheet">
+	<title>Vista calendarios</title>
+	<meta charset="utf-8">
+	<style>
+		#contenedor_principal
+		{
+			font-family: 'Lato', sans-serif;
+			overflow:auto;
+			max-width: 1090px;
+		}
+		#mostrar_calendario 
+		{
+			background-color: #f8f8f8;
+			overflow:auto;
+			max-width: 1090px;
+			padding: 2em;
+			
+		}
+		#mostrar_calendario h4{
+			font-size: 1.5em;
+			font-weight: 400;
+			color: #777777;
+		}
+		#cont_calendario
+		{
+			border-style: solid;
+			border-width: 1px;
+			border-color: #898989;
+			border-radius: 10px;
+			overflow: auto;
+			max-width: 1000px;
+			padding-top: 40px;
+			padding-bottom: 15px;
+			padding-left: 10px;
+			background-color: #fff;
+		}
+		.contenedor {
+			
+			font-size: .9em;
+			float: left;
+			margin-left: 2%;
+			width: 46%;				
+		}
+		.contenedor table {
+			width: 100%;
+		}
+		.contenedor caption {
+			text-align:center;
+			padding:5px 10px;
+			color: #777777;
+			font-weight:bold;
+			font-size: 1.5em;
+			padding-bottom: 15px;
+		}
+		.contenedor th {
+			
+			background-color:#E0E0E0;
+			color:#333;
+			width: 14.3%;
+			padding: 1em;
+			font-weight: 900;
+		}
+		.contenedor td {
+			font-weight: 400;
+			text-align:right;
+			padding: .6em;
+			font-size: .9em;
+			background-color: #fff;
+			
+		}
+		.contenedor a {
+			text-decoration: none;
+			color:#5c5c5c;
+		}
+		
+		
+	</style>
+</head>
+ 
+<body>
+<h1></h1>
+<div id="contenedor_principal">
+	<div id="mostrar_calendario">
+		<h4>Please select your prefered test date</h4>
+	<div id="cont_calendario">
+<?php
+//************* IMPRESION MULTIPLE DE CALENDARIOS
+$last_cell=$diaSemana+$ultimoDiaMes;
+for($i0=0; $i0<=1; $i0++)
+{
+
+echo '<div class="contenedor"><table  cellspacing= "0px">
+	<caption>'.$meses[$month+$i0].' '.$year.' </caption>
+	<tr>
+		<th>Mo</th><th>Tu</th><th>We</th><th>Th</th>
+		<th>Fr</th><th>Sa</th><th>Su</th>
+	</tr>
+	<tr>';
+		
+		
+		
+		// hacemos un bucle hasta 42, que es el máximo de valores que puede
+		// haber... 6 columnas de 7 dias
+		for($i=1;$i<=42;$i++)
+		{
+			if($i==$diaSemana)
+			{
+				// determinamos en que dia empieza
+				$day=1;
+			}
+			if($i<$diaSemana || $i>=$last_cell)
+			{
+				// celda vacia
+				echo "<td>&nbsp;</td>";
+			}
+			else
+			{
+				// mostramos el evento
+				$fecha_evento=$year;
+				$fecha_evento.="-";
+				if($month+$i0 < 10)
+				{
+				$fecha_evento.=0;
+				}
+				$fecha_evento.=$month+$i0;
+				$fecha_evento.="-";
+				if($day < 10)
+				{
+				$fecha_evento.=0;
+				}
+				$fecha_evento.=$day;
+				
+				$Ob_evento->inicializar($fecha_evento,$_REQUEST['calendar'],'activo');
+				$parametros=$Ob_evento->calendario_eventos($fecha_actual);
+				//echo "<br>Dia = ".$day;
+				//formatear la celda *********************************************************************
+								
+				if(count($parametros) < 2)
+				{
+				echo "<td ";
+				foreach($parametros as $indice => $fila)
+				{
+					foreach($fila as $nombre => $valor)
+					{
+						
+						if($nombre == "color")
+						{
+							echo ' style="background-color: '.$valor.'; "';
+						}
+						
+						if($nombre == "destino_url")
+						{
+							echo '><a href="'.$valor.'"';
+						}
+						
+
+					}
+					
+					
+				}
+				echo " >".$day."</a></td>";
+				
+				}
+				else 
+				{
+					echo "<td >";
+				foreach($parametros as $indice => $fila)
+				{
+					foreach($fila as $nombre => $valor)
+					{
+						
+						if($nombre == "color")
+						{
+							echo '<div style="float: left; background-color: '.$valor.'; border-radius: 50%; width: 8px; height: 8px; margin-left: 2px;">';
+						}
+						
+						if($nombre == "destino_url")
+						{
+							echo '<a href="'.$valor.'"><div style="border-radius: 50%; width: 8px; height: 8px; "></div></a></div>';
+						}				
+					}
+				}
+				echo $day."</td>";
+				}
+				
+									
+				$day++;
+				
+				
+			}
+			// cuando llega al final de la semana, iniciamos una columna nueva
+			if($i%7==0)
+			{
+				echo "</tr><tr>";
+			}
+		}
+	
+echo '</tr>
+</table></div>';
+
+} //fin for
+//************* IMPRESION MULTIPLE DE CALENDARIOS
+
+ ?>
+ </div>
+ </div>
+</div><!--contenedor principal-->
+<form action="#" method="POST" name="form">
+  <input type="hidden" name="url_destino" value="https://my.ieltsessentials.com/IELTS?_ga=2.71928407.51873902.1567869457-590474675.1551445527&countryId=44&isSelt=false&lang=en&ref=v3.testsession.all&restrictToSpecifiedDate=true&testCentreId=18301&testCentreLocationId=2120&testSessionDate=2019-09-30T08%3A30%3A00&testVenueId=2347&testmoduleid=1"><br>
+   <input type="hidden" name="calendar" value="Calendario 1"><br>
+   <input type="hidden" name="m" value="enviar">
+   <a href="javascript:document.form.submit();">Enviar formulario</a>
+
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

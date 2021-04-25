@@ -1,0 +1,121 @@
+<?php require_once('header.phtml');?>
+
+<!-- Content -->
+<div class="w3-content" style="max-width:70%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4 class="titulos"><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+    <div class="w3-center w3-padding-10">
+    
+    
+    <form method="get" class="w3-container" action="#">
+    <div class="w3-section" style="width: 49%;	float: left;">
+      <label>Nombres</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="NOMBRE" required="" type="text"  value="<?php echo $_REQUEST['NOMBRE']; ?>">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: right;">
+      <label>Apellidos</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="APELLIDOS" required="" type="text"  value="<?php echo $_REQUEST['APELLIDOS']; ?>">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: left;">
+      <label>Cedula</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="CEDULA" required="" type="text"  value="<?php echo $_REQUEST['CEDULA']; ?>">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: right;">
+      <label>Correo</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="MAIL" required="" type="text"  value="<?php echo $_REQUEST['MAIL']; ?>">
+    </div>
+    <div class="w3-section" style="width: 49%;	float: left;">
+      <label>Contrase&ntilde;a</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" name="CONTRASENA" >
+    </div>
+     <div class="w3-section" style="width: 49%;	float: right;">
+      <label>Estado</label>
+      <select name="ESTADO" class="w3-input w3-border w3-hover-border-black" style="width:100%;">
+		  <option  value="<?php echo $_REQUEST['ESTADO']; ?>" selected><?php echo $_REQUEST['ESTADO']; ?></option>
+		  <option value="desactivado">Desactivado</option>
+		  <option value="activo">Activo</option>
+	</select>
+    </div>
+    
+    <div class="w3-panel">
+    <hr><h4 class="titulos">Seleccione los permisos para el usuario.</h4><hr>
+    </div>
+      <?php 
+   
+   
+	
+		//$per=new usuarios();
+		//$per->permisos_string_array($_REQUEST['PERMISOS']);
+		
+		//PRUEBA RECEPCION MENU Y PERMISOS
+		
+		$menu=explode(",",$_REQUEST['MENU']);
+		$permisos=explode(",",$_REQUEST['PERMISOS']);
+		
+		//FIN PRUEBA
+		echo '<table>
+   <thead><tbody><!--!important -->';
+		
+		foreach ($menu_header as $control => $meto) {
+			
+			echo "<tr>";
+			
+			echo '<td class="permisos" data-label="'.$control.'">'.$control.'</td>';
+			if($met= explode(",",$meto))
+			{
+						
+								
+				for($i=0; $i< count($met); $i++)
+				{
+					if($met[$i] == "_")
+					{
+						echo '<td data-label="'.$control.'"></td>';
+					}
+					else
+					{
+					echo '<td data-label="'.$met[$i].'"><p class="etiqueta-permisos"><input type="checkbox" name="'.$control.'_'.$i.'" value="'.$met[$i].'"';
+					
+					for($y=0; $y< count($menu);$y++)
+					{
+					if($menu[$y] == $control && $permisos[$y]==$met[$i])
+					{
+						//echo "<br> MENU = ".$menu[$i]." y PERMISOS = ".$permisos[$i]." ok ";
+						echo ' checked';
+					}
+					}
+					echo '><br>'.$met[$i].'</p> </td>';
+					}//fin else
+				}
+			
+			}
+			
+			echo "</tr>";
+			
+		}
+	
+		
+		echo "</tbody></table>";
+    ?>
+   
+    <input type="hidden" name="guardar" value="1">
+    <input type="hidden" name="guardar_editar" value="1">
+    <input type="hidden" name="ID" value="<?php echo $_REQUEST['ID']; ?>">
+    <input type="hidden" name="c" value="<?php echo $_REQUEST['c']; ?>">
+    <input type="hidden" name="m" value="<?php echo $_REQUEST['m']; ?>">
+    
+    <button type="submit" class="w3-button w3-block w3-black" style="width:30%;">Guardar</button>
+  </form>
+
+    
+   
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>

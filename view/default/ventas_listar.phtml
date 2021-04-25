@@ -1,0 +1,93 @@
+<?php require_once('header.phtml');?>
+
+
+
+<!-- Content -->
+<div class="w3-content" style="max-width:90%;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-panel">
+    <h4><b><?php echo $metodo.' '. $controlador; ?></b><hr></h4>
+  </div>
+
+  
+  <!-- Grid -->
+  <div class="w3-row w3-container">
+	  
+	  
+	
+	  
+	  
+	  
+    <div class="w3-center w3-padding-10 w3-width-80%">
+    <div class="listar w3-hover-shadow">
+      
+      
+      
+        
+	  <?php 
+	  /*
+      //ENLACES TABLA
+while ($indice = mysql_fetch_array($resultado, MYSQL_ASSOC)) {
+		
+		foreach ($indice as $ind => $col_value) {
+        echo '&lta href="index.php?c=ventas&orden='.$ind.'"&gt&ltimg src="view/default/img/ordenar.png"&gt&lt/a&gt &ltbr&gt<br>';
+		}
+	}
+//ENLACES TABLA   
+   */
+   echo '<table>
+   <thead >
+              <tr>
+                <th><a href="index.php?c=ventas&amp;orden=ID">No.</a></th>
+                <th><a href="index.php?c=ventas&orden=PRODUCTO">Producto</a></th>
+				<th><a href="index.php?c=ventas&orden=NOMBRE_ESTUDIANTE">Estudiante</a></th>
+				<th><a href="index.php?c=ventas&orden=CEDULA_ESTUDIANTE">C.c Estudiante</a></th>
+				<th><a href="index.php?c=ventas&orden=CORREO_ESTUDIANTE">Mail Estudiante</a></th>
+				<th><a href="index.php?c=ventas&orden=DIRECCION_ESTUDIANTE">Direcci&oacute;n</a></th>
+				<th><a href="index.php?c=ventas&orden=CELULAR_ESTUDIANTE">Cel. Estudiante</a></th>
+				<th><a href="index.php?c=ventas&orden=PAGO_SELECCIONADO">Metodo pago</a></th>
+                <th><a href="index.php?c=ventas&orden=NOMBRE_COMPRADOR">Cliente</a></th>
+                <th><a href="index.php?c=ventas&orden=DESCRIPCION">Descripci&oacute;n</a></th>
+                <th><a href="index.php?c=ventas&orden=MENSAJE_RESPUESTA_PAYU">Mensaje</a></th>
+                <th><a href="index.php?c=ventas&orden=VALOR">Valor</a></th>
+                <th><a href="index.php?c=ventas&orden=DIRECCION_FACTURACION">Direcci&oacute;n</a></th>
+                <th><a href="index.php?c=ventas&orden=CIUDAD_FACTURACION">Ciudad</a></th>
+                <th><a href="index.php?c=ventas&orden=TELEFONO_COMPRADOR">Tel&eacute;fono</a></th>
+                <th><a href="index.php?c=ventas&orden=DOCUMENTO">Documento</a></th>
+                <th><a href="index.php?c=ventas&orden=EMAIL_COMPRADOR">Email</a></th>
+                <th><a href="index.php?c=ventas&orden=ID_TRANSACCION">ID transacci&oacute;n</a> </th>
+                <th><a href="index.php?c=ventas&orden=REFERENCIA">Referencia</a></th>
+                <th><a href="index.php?c=ventas&orden=COD_SEGUIMIENTO">Cod. Seguimiento</a></th>
+                <th><a href="index.php?c=ventas&orden=BANCO_PSE">Banco PSE</a> </th>
+                <th><a href="index.php?c=ventas&orden=ENTIDAD">Entidad</a></th>
+                <th><a href="index.php?c=ventas&orden=MONEDA">Moneda</a> </th>
+                <th><a href="index.php?c=ventas&orden=FECHA_TRANSACCION">Fecha Trans</a></th>
+                <th><a href="index.php?c=ventas&orden=IP">IP</a></th>
+              </tr>
+            </thead>
+           
+            <!--!important --> <tbody>';
+            
+         
+          
+         
+		while ($indice = mysqli_fetch_array($resultado, MYSQLI_ASSOC)) {
+		echo "<tr>";
+		foreach ($indice as $ind => $col_value) {
+        echo '<td data-label="'.$ind.'">'.$col_value.'</td>';
+		}
+		echo "</tr>";
+		}
+		echo "<tbody></table>";
+		mysqli_free_result($resultado);
+		unset($resultado);
+    ?>
+      
+      
+    </div>
+    </div>
+  
+</div>
+
+<?php require_once('footer.phtml');?>
+
