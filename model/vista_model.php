@@ -6,7 +6,7 @@ class vista
 	{
 		
 
-		$mensage = "
+		$mensage = '
 		<!DOCTYPE html>
 <html>
 <head>
@@ -40,16 +40,16 @@ th {
   <tr>
     <td>
     <h1>
-      ".$titulo."
+      '.$titulo.'
       </h1>
       <p>
-        ".$texto1."
+        '.$texto1.'
       </p>
       <p>
-        ".$texto2."
+        '.$texto2.'
       </p>
       <p>
-        ".$texto3."
+        '.$texto3.'
       </p>
     </td>
    
@@ -66,7 +66,7 @@ th {
 </body>
 </html>
 
-		";
+		';
 
 		// Always set content-type when sending HTML email
 		$headers = "MIME-Version: 1.0" . "\r\n";
@@ -97,7 +97,9 @@ th {
 
 		print "</pre>";
 	}
+	
+
 }
 
-	
+
 ?>

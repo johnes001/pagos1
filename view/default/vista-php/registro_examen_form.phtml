@@ -61,7 +61,7 @@ require_once('view/default/vista-php/header.phtml');
     </div>
      <div class="w3-section" style="width: 49%;	float: left;">
       <label>Comprobante de Transacci&oacute;n<br />"jpg, png, jpeg"</label>
-      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="file" name="compromiso_registration" required placeholder="jpg, png, jpeg">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="file" name="comprobante_transaccion" required placeholder="jpg, png, jpeg">
     </div>
     
     <div class="w3-panel">
@@ -69,6 +69,7 @@ require_once('view/default/vista-php/header.phtml');
 
     <input type="hidden" name="exam" value="<?php echo $_REQUEST['exam']; ?>">
     <input type="hidden" name="MAX_FILE_SIZE" value="3000" />
+    <input type="hidden" name="var" value="enviar" />
     <button type="submit" class="w3-button w3-block w3-teal" style="width:30%; margin-left: 35%;">Enviar inscripción</button>
      </div>
       <hr>
